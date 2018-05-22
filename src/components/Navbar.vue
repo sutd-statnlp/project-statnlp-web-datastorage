@@ -17,11 +17,19 @@
 </template>
 
 <script>
+import { loadProgressBar } from 'axios-progress-bar'
 export default {
   name: 'Navbar',
   data () {
     return {
     }
+  },
+  created () {
+    loadProgressBar({
+      showSpinner: false,
+      easing: 'ease',
+      speed: 500
+    })
   }
 }
 </script>
