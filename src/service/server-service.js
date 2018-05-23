@@ -18,10 +18,13 @@ class ServerService {
     return this.httpSchema + this.server.ip + this.port
   }
   getApiEndpoint () {
-    return this.getEndpoint() + '/parse'
+    return `${this.getEndpoint()}/parse`
   }
   getObjectEndpoint (objectName) {
-    return this.getEndpoint() + '/parse/classes/' + objectName
+    return `${this.getEndpoint()}/parse/classes/${objectName}`
+  }
+  getObjectInstanceEndpoint (objectName, instanceId) {
+    return `${this.getEndpoint()}/parse/classes/${objectName}/${instanceId}`
   }
 }
 

@@ -21,34 +21,52 @@ export default {
   mutations: {
     addObject (state, payload) {
       let object = payload.object
-      let url = ServerService.getObjectEndpoint(object.name)
-      axios.post(url, object.json).then(function (response) {
-        StoreUtil.addObjectName(state.objectNames, object.name)
-        AlertService.success('Add successfully !')
-      }).catch(function (error) {
-        console.log(error)
-      })
+      StoreUtil.addObjectName(state.objectNames, object.name)
+      AlertService.success('Add successfully !')
     },
     searchObject (state, payload) {
-      let url = ServerService.getObjectEndpoint(payload.name)
-      axios.get(url)
-        .then(function (response) {
-          state.instances = response.data.results
-          if (state.instances.length > 0) {
-            StoreUtil.addObjectName(state.objectNames, payload.name)
-          }
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
+      state.instances = payload.data.results
+      if (state.instances.length > 0) {
+        StoreUtil.addObjectName(state.objectNames, payload.name)
+      }
+    },
+    deleteObject (state, payload) {
+      AlertService.success('Deleted !', 'The instance has been deleted.')
     }
   },
   actions: {
     addObject (context, payload) {
-      context.commit('addObject', payload)
+      let object = payload.object
+      let url = ServerService.getObjectEndpoint(object.name)
+      axios.post(url, object.json).then(function (response) {
+        context.commit('addObject', payload)
+      }).catch(function (error) {
+        console.log(error)
+      })
     },
     searchObject (context, payload) {
-      context.commit('searchObject', payload)
+      let url = ServerService.getObjectEndpoint(payload.name)
+      axios.get(url)
+        .then(function (response) {
+          context.commit('searchObject', {
+            data: response.data,
+            name: payload.name
+          })
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
+    deleteObject (context, payload) {
+      let url = ServerService.getObjectInstanceEndpoint(payload.name, payload.id)
+      axios.delete(url).then(function (response) {
+        context.commit('deleteObject', payload)
+        context.dispatch('searchObject', {
+          name: payload.name
+        })
+      }).catch(function (error) {
+        console.log(error)
+      })
     }
   }
 }

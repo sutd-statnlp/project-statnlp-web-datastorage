@@ -39,14 +39,6 @@
          </div>
         </div>
       </div>
-      <div class="clearix"></div>
-      <div class="col-md-12">
-        <div class="tile">
-          <h3 class="tile-title"></h3>
-          <div class="tile-body">
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -74,7 +66,7 @@ export default {
         return
       }
       if (!this.jsonEditor) {
-        AlertService.error('Invalid JSON !')
+        AlertService.danger('Invalid JSON !')
         return
       }
       this.$store.dispatch('object/addObject', {

@@ -7,7 +7,7 @@
       <ul class="app-nav">
         <li class="app-search">
           <form v-on:submit.prevent="submitSearch">
-            <input v-model="searchText" class="app-search__input" type="search" placeholder="Search" required>
+            <input v-model="searchText" class="app-search__input" type="search" minlength="6" placeholder="Search Object" required>
             <button class="app-search__button" type="submit">
               <i class="fa fa-search"></i>
             </button>
