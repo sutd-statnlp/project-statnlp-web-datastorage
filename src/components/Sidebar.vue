@@ -15,18 +15,11 @@
             <span class="app-menu__label">New object</span>
           </router-link>
         </li>
-        <li class="treeview">
-          <router-link class="app-menu__item" to="objects" data-toggle="treeview" :class="currentPath == '/objects' ? 'active' : ''">
-            <i class="app-menu__icon fa fa-object-group"></i>
-            <span class="app-menu__label">Objects</span>
-            <i class="treeview-indicator fa fa-angle-right"></i>
+        <li v-for="(item, index) in objectNames" :key="index">
+          <router-link class="app-menu__item" :to="'/objects/' + item">
+            <i class="app-menu__icon fa fa-circle"></i>
+            <span class="app-menu__label">{{item}}</span>
           </router-link>
-          <ul class="treeview-menu">
-            <li>
-              <a class="treeview-item" href="">
-                <i class="icon fa fa-circle"></i> Test</a>
-            </li>
-          </ul>
         </li>
       </ul>
     </aside>
@@ -39,6 +32,8 @@ export default {
   data () {
     return {
     }
+  },
+  created () {
   },
   mounted () {
     let treeviewMenu = $('.app-menu')
@@ -57,6 +52,9 @@ export default {
   computed: {
     currentPath () {
       return this.$route.path
+    },
+    objectNames () {
+      return this.$store.getters['object/getObjectNames']
     }
   }
 }

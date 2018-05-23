@@ -53,6 +53,7 @@
 
 <script>
 import JSONEditor from 'jsoneditor'
+import AlertService from '@/service/alert-service'
 export default {
   name: 'NewObject',
   data () {
@@ -73,15 +74,15 @@ export default {
         return
       }
       if (!this.jsonEditor) {
-        $.notify('Invalid JSON !', {
-          type: 'danger',
-          placement: {
-            align: 'center'
-          }
-        })
+        AlertService.error('Invalid JSON !')
         return
       }
-      console.log(this.jsonEditor.get())
+      this.$store.dispatch('object/addObject', {
+        object: {
+          name: this.objectName,
+          json: this.jsonEditor.get()
+        }
+      })
     },
     destroyEditor () {
       if (this.jsonEditor) {

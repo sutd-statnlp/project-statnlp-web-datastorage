@@ -6,10 +6,12 @@
       <!-- Navbar Right Menu-->
       <ul class="app-nav">
         <li class="app-search">
-          <input class="app-search__input" type="search" placeholder="Search">
-          <button class="app-search__button">
-            <i class="fa fa-search"></i>
-          </button>
+          <form v-on:submit.prevent="submitSearch">
+            <input v-model="searchText" class="app-search__input" type="search" placeholder="Search" required>
+            <button class="app-search__button" type="submit">
+              <i class="fa fa-search"></i>
+            </button>
+          </form>
         </li>
       </ul>
     </header>
@@ -22,6 +24,7 @@ export default {
   name: 'Navbar',
   data () {
     return {
+      searchText: ''
     }
   },
   created () {
@@ -30,6 +33,12 @@ export default {
       easing: 'ease',
       speed: 500
     })
+  },
+  methods: {
+    submitSearch () {
+      let name = this.searchText.trim()
+      this.$router.push(`/objects/${name}`)
+    }
   }
 }
 </script>
