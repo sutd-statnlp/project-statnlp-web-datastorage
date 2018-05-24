@@ -9,7 +9,7 @@
       <div class="col-md-12">
         <div class="tile">
           <div class="tile-body">
-            <table class="table table-striped table-bordered" id="objTable">
+            <table class="table table-striped table-bordered table-responsive-sm" id="objTable">
               <thead>
                 <tr>
                   <th>#</th>
@@ -26,7 +26,7 @@
                   <td>{{item.createdAt | date}}</td>
                   <td>{{item.updatedAt | date }}</td>
                   <td class="text-center">
-                    <button type="button" class="btn btn-info btn-sm m-btn-sm mr-2" aria-label="delete">
+                    <button type="button" class="btn btn-info btn-sm m-btn-sm mr-2" aria-label="delete" @click="updateObject(item)">
                      <span><i class="fa fa-edit"></i></span>
                     </button>
                     <button type="button" class="btn btn-danger btn-sm m-btn-sm" aria-label="delete" @click="deleteObject(item.objectId)">
@@ -40,16 +40,24 @@
         </div>
       </div>
     </div>
+    <ObjectDialog id="objectDialog" :instance="currentInstance" :saveObject="saveObject"/>
   </div>
 </template>
 
 <script>
 import AlertService from '@/service/alert-service'
+import ObjectDialog from '@/components/ObjectDialog'
 export default {
+  components: {
+    ObjectDialog
+  },
   name: 'ObjectPage',
   data () {
     return {
-      dataTable: null
+      dataTable: null,
+      currentInstance: {
+        objectId: null
+      }
     }
   },
   created () {
@@ -91,6 +99,13 @@ export default {
           })
         }
       })
+    },
+    updateObject (object) {
+      this.currentInstance = object
+      $('#objectDialog').modal({})
+    },
+    saveObject (newObject) {
+      console.log(newObject)
     }
   },
   watch: {
@@ -108,6 +123,8 @@ export default {
     instances () {
       return this.$store.getters['object/getInstances']
     }
+  },
+  mounted () {
   }
 }
 </script>
