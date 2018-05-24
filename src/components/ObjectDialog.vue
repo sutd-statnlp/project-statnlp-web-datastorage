@@ -14,7 +14,8 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" @click="saveObject(jsonEditor.get())">Save</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+            @click="saveObject(jsonEditor.get())">Save</button>
           </div>
         </div>
       </div>
@@ -53,7 +54,11 @@ export default {
   updated () {
     let container = document.getElementById('objectJsonEditor')
     this.destroyEditor()
-    this.jsonEditor = new JSONEditor(container, {}, this.instance)
+    let objectJson = {...this.instance}
+    delete objectJson['objectId']
+    delete objectJson['createdAt']
+    delete objectJson['updatedAt']
+    this.jsonEditor = new JSONEditor(container, {}, objectJson)
   }
 }
 </script>

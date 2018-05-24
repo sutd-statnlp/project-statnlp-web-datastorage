@@ -3,8 +3,6 @@ import axios from 'axios'
 class ServerService {
   constructor () {
     axios.defaults.timeout = 4000
-    axios.defaults.headers.common['X-Parse-Application-Id'] = 'APPLICATION_ID'
-    axios.defaults.headers.common['X-Parse-REST-API-Key'] = 'REST_API_KEY'
 
     this.httpSchema = 'http://'
     this.port = ':8000'
@@ -18,13 +16,13 @@ class ServerService {
     return this.httpSchema + this.server.ip + this.port
   }
   getApiEndpoint () {
-    return `${this.getEndpoint()}/parse`
+    return `${this.getEndpoint()}/api`
   }
   getObjectEndpoint (objectName) {
-    return `${this.getEndpoint()}/parse/classes/${objectName}`
+    return `${this.getEndpoint()}/api/objects/${objectName}`
   }
   getObjectInstanceEndpoint (objectName, instanceId) {
-    return `${this.getEndpoint()}/parse/classes/${objectName}/${instanceId}`
+    return `${this.getEndpoint()}/api/objects/${objectName}/${instanceId}`
   }
 }
 

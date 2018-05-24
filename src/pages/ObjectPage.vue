@@ -105,7 +105,11 @@ export default {
       $('#objectDialog').modal({})
     },
     saveObject (newObject) {
-      console.log(newObject)
+      newObject['objectId'] = this.currentInstance.objectId
+      this.$store.dispatch('object/saveObject', {
+        name: this.$route.params.name,
+        object: newObject
+      })
     }
   },
   watch: {

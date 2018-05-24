@@ -31,7 +31,10 @@ export default {
       }
     },
     deleteObject (state, payload) {
-      AlertService.success('Deleted !', 'The instance has been deleted.')
+      AlertService.success('The instance has been deleted !')
+    },
+    saveObject (state, payload) {
+      AlertService.success('The instance has been saved !')
     }
   },
   actions: {
@@ -61,6 +64,17 @@ export default {
       let url = ServerService.getObjectInstanceEndpoint(payload.name, payload.id)
       axios.delete(url).then(function (response) {
         context.commit('deleteObject', payload)
+        context.dispatch('searchObject', {
+          name: payload.name
+        })
+      }).catch(function (error) {
+        console.log(error)
+      })
+    },
+    saveObject (context, payload) {
+      let url = ServerService.getObjectInstanceEndpoint(payload.name, payload.object.objectId)
+      axios.put(url, payload.object).then(function (response) {
+        context.commit('saveObject', payload)
         context.dispatch('searchObject', {
           name: payload.name
         })
