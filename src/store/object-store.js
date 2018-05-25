@@ -44,6 +44,7 @@ export default {
       axios.post(url, object.json).then(function (response) {
         context.commit('addObject', payload)
       }).catch(function (error) {
+        AlertService.danger('Service is not available !')
         console.log(error)
       })
     },
@@ -57,6 +58,7 @@ export default {
           })
         })
         .catch(function (error) {
+          AlertService.danger('Service is not available !')
           console.log(error)
         })
     },
@@ -68,6 +70,7 @@ export default {
           name: payload.name
         })
       }).catch(function (error) {
+        AlertService.danger('Service is not available !')
         console.log(error)
       })
     },
@@ -79,6 +82,7 @@ export default {
           name: payload.name
         })
       }).catch(function (error) {
+        AlertService.danger('Service is not available !')
         console.log(error)
       })
     }
