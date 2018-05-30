@@ -34,6 +34,7 @@ export default {
     }
   },
   created () {
+    this.$store.dispatch('object/getObjects')
   },
   mounted () {
     let treeviewMenu = $('.app-menu')

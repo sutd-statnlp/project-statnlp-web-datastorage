@@ -5,15 +5,11 @@ class ServerService {
     axios.defaults.timeout = 4000
 
     this.httpSchema = 'http://'
-    this.port = ':8000'
-
-    this.server = {
-      name: 'StatNLP 0',
-      ip: '127.0.0.1'
-    }
+    this.port = ':8230'
+    this.ip = '127.0.0.1'
   }
   getEndpoint () {
-    return this.httpSchema + this.server.ip + this.port
+    return this.httpSchema + this.ip + this.port
   }
   getApiEndpoint () {
     return `${this.getEndpoint()}/api`
@@ -23,6 +19,9 @@ class ServerService {
   }
   getObjectInstanceEndpoint (objectName, instanceId) {
     return `${this.getEndpoint()}/api/objects/${objectName}/${instanceId}`
+  }
+  getAllObjectsEndpoint () {
+    return `${this.getEndpoint()}/api/objects`
   }
 }
 

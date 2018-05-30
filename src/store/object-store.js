@@ -25,7 +25,7 @@ export default {
       AlertService.success('Add successfully !')
     },
     searchObject (state, payload) {
-      state.instances = payload.data.results
+      state.instances = payload.data
       if (state.instances.length > 0) {
         StoreUtil.addObjectName(state.objectNames, payload.name)
       }
@@ -35,6 +35,9 @@ export default {
     },
     saveObject (state, payload) {
       AlertService.success('The instance has been saved !')
+    },
+    getObjects (state, payload) {
+      state.objectNames = payload.data
     }
   },
   actions: {
@@ -44,7 +47,7 @@ export default {
       axios.post(url, object.json).then(function (response) {
         context.commit('addObject', payload)
       }).catch(function (error) {
-        AlertService.danger('Service is not available !')
+        AlertService.danger(error.toString())
         console.log(error)
       })
     },
@@ -52,13 +55,14 @@ export default {
       let url = ServerService.getObjectEndpoint(payload.name)
       axios.get(url)
         .then(function (response) {
+          console.log(payload.name)
           context.commit('searchObject', {
             data: response.data,
             name: payload.name
           })
         })
         .catch(function (error) {
-          AlertService.danger('Service is not available !')
+          AlertService.danger(error.toString())
           console.log(error)
         })
     },
@@ -70,7 +74,7 @@ export default {
           name: payload.name
         })
       }).catch(function (error) {
-        AlertService.danger('Service is not available !')
+        AlertService.danger(error.toString())
         console.log(error)
       })
     },
@@ -82,9 +86,22 @@ export default {
           name: payload.name
         })
       }).catch(function (error) {
-        AlertService.danger('Service is not available !')
+        AlertService.danger(error.toString())
         console.log(error)
       })
+    },
+    getObjects (context, payload) {
+      let url = ServerService.getAllObjectsEndpoint()
+      axios.get(url)
+        .then(function (response) {
+          context.commit('getObjects', {
+            data: response.data
+          })
+        })
+        .catch(function (error) {
+          AlertService.danger(error.toString())
+          console.log(error)
+        })
     }
   }
 }

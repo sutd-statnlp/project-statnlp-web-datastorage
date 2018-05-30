@@ -20,7 +20,7 @@
                 <label class="control-label">JSON</label>
                 <textarea v-model="objectJson" class="form-control m-input-json" rows="4" minlength="2" placeholder="Enter object json" required></textarea>
                 <div class="invalid-feedback">
-                  Valid JSON and The length is greater than 2.
+                  Valid JSON and the length is greater than 2.
                 </div>
               </div>
           </div>
