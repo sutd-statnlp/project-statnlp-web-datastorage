@@ -22,14 +22,14 @@
               <tbody>
                 <tr v-for="(item, index) in instances" :key="index">
                   <td>{{index + 1}}</td>
-                  <td>{{item.objectId}}</td>
-                  <td>{{item.createdAt | date}}</td>
-                  <td>{{item.updatedAt | date }}</td>
+                  <td>{{item.ID}}</td>
+                  <td>{{item.CreatedAt | date}}</td>
+                  <td>{{item.UpdatedAt | date }}</td>
                   <td class="text-center">
                     <button type="button" class="btn btn-info btn-sm m-btn-sm mr-2" aria-label="delete" @click="updateObject(item)">
                      <span><i class="fa fa-edit"></i></span>
                     </button>
-                    <button type="button" class="btn btn-danger btn-sm m-btn-sm" aria-label="delete" @click="deleteObject(item.objectId)">
+                    <button type="button" class="btn btn-danger btn-sm m-btn-sm" aria-label="delete" @click="deleteObject(item.ID)">
                      <span><i class="fa fa-trash"></i></span>
                     </button>
                   </td>
@@ -56,7 +56,7 @@ export default {
     return {
       dataTable: null,
       currentInstance: {
-        objectId: null
+        ID: null
       }
     }
   },
@@ -105,9 +105,9 @@ export default {
       $('#objectDialog').modal({})
     },
     saveObject (newObject) {
-      newObject['objectId'] = this.currentInstance.objectId
       this.$store.dispatch('object/saveObject', {
         name: this.$route.params.name,
+        id: this.currentInstance.ID,
         object: newObject
       })
     }

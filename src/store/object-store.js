@@ -55,11 +55,12 @@ export default {
       let url = ServerService.getObjectEndpoint(payload.name)
       axios.get(url)
         .then(function (response) {
-          console.log(payload.name)
-          context.commit('searchObject', {
-            data: response.data,
-            name: payload.name
-          })
+          if (response.data) {
+            context.commit('searchObject', {
+              data: response.data,
+              name: payload.name
+            })
+          }
         })
         .catch(function (error) {
           AlertService.danger(error.toString())
@@ -79,7 +80,7 @@ export default {
       })
     },
     saveObject (context, payload) {
-      let url = ServerService.getObjectInstanceEndpoint(payload.name, payload.object.objectId)
+      let url = ServerService.getObjectInstanceEndpoint(payload.name, payload.id)
       axios.put(url, payload.object).then(function (response) {
         context.commit('saveObject', payload)
         context.dispatch('searchObject', {
