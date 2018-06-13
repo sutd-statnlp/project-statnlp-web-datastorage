@@ -13,13 +13,20 @@
             </button>
           </form>
         </li>
+        <li>
+          <a class="app-nav__item" href="#" aria-label="Logout" @click="logout">
+            <i class="fa fa-sign-out fa-lg"></i>
+          </a>
+        </li>
       </ul>
+
     </header>
   </div>
 </template>
 
 <script>
 import { loadProgressBar } from 'axios-progress-bar'
+import AuthService from '@/service/auth-service'
 export default {
   name: 'Navbar',
   data () {
@@ -38,6 +45,9 @@ export default {
     submitSearch () {
       let name = this.searchText.trim()
       this.$router.push(`/objects/${name}`)
+    },
+    logout () {
+      AuthService.logout()
     }
   }
 }

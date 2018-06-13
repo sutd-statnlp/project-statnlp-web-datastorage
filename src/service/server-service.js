@@ -23,6 +23,9 @@ class ServerService {
   getAllObjectsEndpoint () {
     return `${this.getEndpoint()}/api/objects`
   }
+  getLoginEndpoint () {
+    return `${this.getEndpoint()}/login`
+  }
 }
 
 export default new ServerService()
